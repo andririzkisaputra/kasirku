@@ -4,11 +4,9 @@ use yii\widgets\LinkPager;
 ?>
 <h1>Data User</h1>
 <ul>
-  <?php foreach ($user as $value):?>
+  <?php foreach ($user as $key => $value):?>
     <li>
-      <? Html::encode("{value->nama}") ?>
+      <? echo $value; ?>
     </li>
   <?php endforeach; ?>
 </ul>
-
-<? LinkPager::widget(['pagination' => $pagination]) ?>

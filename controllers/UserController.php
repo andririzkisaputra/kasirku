@@ -7,6 +7,16 @@ use app\models\DataUser;
 
 class UserController extends Controller
 {
+
+  public function actions()
+  {
+      return [
+          'error' => [
+              'class' => 'yii\web\ErrorAction',
+          ],
+      ];
+  }
+
   public function actionIndex()
   {
     $query      = DataUser::find();
