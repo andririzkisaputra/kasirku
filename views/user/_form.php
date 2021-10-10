@@ -1,6 +1,6 @@
 <?php
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+use yii\widgets\ActiveForm;
 ?>
 <?php $form = ActiveForm::begin(); ?>
 <?= $form->field($model, 'username') ?>
