@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Registrasi;
 
 class SiteController extends Controller
 {
@@ -103,7 +104,7 @@ class SiteController extends Controller
      *
      * @return Response|string
      */
-    public function actionContact()
+    public function actionKontak()
     {
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
@@ -111,7 +112,7 @@ class SiteController extends Controller
 
             return $this->refresh();
         }
-        return $this->render('contact', [
+        return $this->render('kontak', [
             'model' => $model,
         ]);
     }
@@ -121,8 +122,8 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionAbout()
+    public function actionTentang()
     {
-        return $this->render('about');
+        return $this->render('tentang');
     }
 }
