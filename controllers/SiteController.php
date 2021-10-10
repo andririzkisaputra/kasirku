@@ -7,10 +7,8 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
-use yii\data\Pagination;
 use app\models\LoginForm;
 use app\models\ContactForm;
-use app\models\DataUser;
 
 class SiteController extends Controller
 {
@@ -127,22 +125,4 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
-
-    public function actionData()
-    {
-      $query      = DataUser::find();
-
-      // $pagination = new Pagination([
-      //     'defaultPageSize' => 5,
-      //     'totalCount'      => $query->count(),
-      // ]);
-
-      // $user  = $query->offset($pagination->offset)->limit($pagination->limit)->all();
-      // $user  = $query->all();
-      return $this->render('dataUser', [
-        'user'       => $query,
-        // 'pagination' => $pagination,
-      ]);
-    }
-
 }
