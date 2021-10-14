@@ -15,5 +15,14 @@ class Produk extends ActiveRecord
         return '{{%produk}}';
     }
 
+    public function rules()
+    {
+        return [
+            [['nama_produk', 'harga_produk'], 'required'],
+            [['nama_produk'], 'string'],
+            [['harga_produk'], 'number'],
+        ];
+    }
+
 
 }

@@ -35,6 +35,10 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
+                        'actions' => ['updateproduk', 'error'],
+                        'allow' => true,
+                    ],
+                    [
                         'actions' => ['logout', 'index'],
                         'allow' => true,
                         'roles' => ['@'],
@@ -115,9 +119,9 @@ class SiteController extends Controller
           'produk' => $produk,
         ]);
     }
-    public function actionUpdateproduk($value)
+    public function actionUpdateproduk($id)
     {
-        $model = Produk::findOne($value);
+        $model = Produk::findOne($id);
 
         if (Yii::$app->request->post()) {
             $model->load(Yii::$app->request->post());
