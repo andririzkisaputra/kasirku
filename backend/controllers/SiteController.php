@@ -2,13 +2,16 @@
 
 namespace backend\controllers;
 
-use common\models\LoginForm;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 
+
+use common\models\LoginForm;
+use common\models\Produk;
+use common\models\Format;
 /**
  * Site controller
  */
@@ -25,6 +28,10 @@ class SiteController extends Controller
                 'rules' => [
                     [
                         'actions' => ['login', 'error'],
+                        'allow' => true,
+                    ],
+                    [
+                        'actions' => ['dataproduk', 'error'],
                         'allow' => true,
                     ],
                     [
@@ -90,15 +97,41 @@ class SiteController extends Controller
         ]);
     }
 
-    /**
-     * Logout action.
-     *
-     * @return Response
-     */
     public function actionLogout()
     {
-        Yii::$app->user->logout();
+      Yii::$app->user->logout();
 
-        return $this->goHome();
+      return $this->goHome();
     }
+
+    // Produk
+    public function actionDataproduk()
+    {
+        $produk = Produk::find()->all();
+        foreach ($produk as $key => $value) {
+          $value->harga_produk = Format::formatHarga($value->harga_produk);
+        }
+        return $this->render('data_produk/index', [
+          'produk' => $produk,
+        ]);
+    }
+    public function actionUpdateproduk($value)
+    {
+        $model = Produk::findOne($value);
+
+        if (Yii::$app->request->post()) {
+            $model->load(Yii::$app->request->post());
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', 'Data berhasil disimpan');
+            } else {
+                Yii::$app->session->setFlash('error', 'Data gagal disimpan');
+            }
+            return $this->refresh();
+        } else {
+            return $this->render('data_produk/ubah_produk', [
+                'model' => $model,
+            ]);
+        }
+    }
+    // End Produk
 }
